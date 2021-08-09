@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  </head>
+  <body>
+    <button onclick="getData()">获取graphql的数据</button>
+  </body>
+  <script type="text/javascript">
+    //如何在客户端访问graphql的接口
+    function getData() {
+      console.log("666");
+      const query = `
+      query Account($username:String){
+          account(username:$username){
+            name
+            age
+            sex
+            salary(city:"北京")
+          }
+      }
+      `;
+      const variables = { username: "杨美玲" };
+      fetch("/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: variables,
+        }),
+      })
+        .then((res) => res.josn)
+        .then((json) => {
+          console.log(data);
+        });
+    }
+  </script>
+</html>
